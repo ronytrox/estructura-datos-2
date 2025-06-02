@@ -12,9 +12,10 @@ public class Funciones {
 
     public static void addLeaf(int value) {
         root = addLeafRec(root, value);
+        System.out.println(root.toString());
     }
 
-    public static TreeNode addLeafRec(TreeNode root, int value) {
+    private static TreeNode addLeafRec(TreeNode root, int value) {
         if (root == null) {
             return new TreeNode(value);
         }
@@ -30,7 +31,7 @@ public class Funciones {
         return searchRec(root, value);
     }
 
-    public int searchRec(TreeNode root, int value) {
+    private int searchRec(TreeNode root, int value) {
         if (root == null) {
             return -1; // Valor no encontrado
         }
