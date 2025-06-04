@@ -4,43 +4,58 @@ import org.example.Nodes.TreeNode;
 
 public class Funciones {
 
-    private static TreeNode root;
+    private TreeNode root;
 
-    public Funciones(){
+    public Funciones() {
         this.root = null;
     }
 
-    public static void addLeaf(int value) {
+    public void addLeaf(int value) {
         root = addLeafRec(root, value);
-        System.out.println(root.toString());
+        System.out.println("Hoja insertada: " + value);
     }
 
-    private static TreeNode addLeafRec(TreeNode root, int value) {
+    private TreeNode addLeafRec(TreeNode root, int value) {
         if (root == null) {
             return new TreeNode(value);
         }
         if (value < root.getValue()) {
             root.setLeft(addLeafRec(root.getLeft(), value));
-        } else if (value > root.getValue()) {
+        } else {
             root.setRight(addLeafRec(root.getRight(), value));
         }
         return root;
     }
 
-    public int search(int value) {
+    public boolean search(int value) {
         return searchRec(root, value);
     }
 
-    private int searchRec(TreeNode root, int value) {
+    private boolean searchRec(TreeNode root, int value) {
         if (root == null) {
-            return -1; // Valor no encontrado
+            return false;
         }
         if (value < root.getValue()) {
             return searchRec(root.getLeft(), value);
         } else if (value > root.getValue()) {
             return searchRec(root.getRight(), value);
         } else {
-            return root.getValue(); // Valor encontrado
+            return true;
+        }
+    }
+
+    public void printTree() {
+        System.out.println("\nÁrbol binario:");
+        printTreeRec(root, "", true);
+    }
+
+    private void printTreeRec(TreeNode node, String prefix, boolean isRight) {
+        if (node != null) {
+            printTreeRec(node.getRight(), prefix + (isRight ? "        " : " |      "), true);
+
+            System.out.println(prefix + (isRight ? " /----- " : " \\----- ") + node.getValue());
+
+            printTreeRec(node.getLeft(), prefix + (isRight ? " |      " : "        "), false);
         }
     }
 }
