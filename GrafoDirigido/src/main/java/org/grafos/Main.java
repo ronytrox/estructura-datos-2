@@ -69,6 +69,11 @@ public class Main {
     public static void AgregarArista(String nodoOrigen, String nodoDestino, double costo) {
         Vertice v = getVertice(nodoOrigen);
         Vertice w = getVertice(nodoDestino);
+
+        if(v.adj.stream().anyMatch(a -> a.dest.name.equals(w.name)) && v.adj.stream().anyMatch(a -> a.cost == costo)) {
+            System.out.println("Arista ya existe entre " + nodoOrigen + " y " + nodoDestino);
+            return;
+        }
         v.adj.add(new Arista(w, costo));
     }
 
@@ -78,8 +83,12 @@ public class Main {
             for (Arista a : v.adj) {
                 System.out.print("-> " + a.dest.name + " (costo: " + a.cost + ") ");
             }
-            for (Vertice v : VerticeMap.values()){
-
+            for (Vertice ve : VerticeMap.values()){
+                for (Arista a : ve.adj) {
+                    if (a.dest.name.equals(v.name)) {
+                        System.out.print("<- " + ve.name + " (costo: " + a.cost + ") ");
+                    }
+                }
             }
             System.out.println();
         }
