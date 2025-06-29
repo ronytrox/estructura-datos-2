@@ -6,6 +6,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * Clase principal para interactuar con la cola de enteros mediante un menú.
+ */
 public class QueueProject {
     public static void main(String[] args) throws IOException {
         IntQueue queue = new IntQueue();
@@ -87,10 +90,22 @@ public class QueueProject {
         }
     }
 
+    /**
+     * Imprime un mensaje en la consola.
+     *
+     * @param s El mensaje a imprimir.
+     */
     static void print(Object s) {
         System.out.println(s);
     }
 
+    /**
+     * Lee una entrada del usuario desde la consola.
+     *
+     * @param s El mensaje que se muestra al usuario.
+     * @return La entrada del usuario como cadena.
+     * @throws IOException Si ocurre un error al leer la entrada.
+     */
     static String read(String s) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         print(s);

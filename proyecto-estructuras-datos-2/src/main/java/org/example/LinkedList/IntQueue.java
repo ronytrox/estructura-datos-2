@@ -1,10 +1,18 @@
 package org.example.LinkedList;
 
+/**
+ * Representa una cola de enteros implementada con una lista enlazada.
+ */
 public class IntQueue {
     private Node head;
     private Node tail;
     private int size;
 
+    /**
+     * Inserta un nuevo elemento al final de la cola.
+     *
+     * @param value El valor entero a insertar.
+     */
     public void insert(int value) {
         Node newNode = new Node(value);
         if (tail == null) {
@@ -16,6 +24,11 @@ public class IntQueue {
         size++;
     }
 
+    /**
+     * Extrae el primer elemento de la cola.
+     *
+     * @return El valor del primer elemento o -1 si la cola está vacía.
+     */
     private int extract() {
         if (head == null) return -1;
         int value = head.data;
@@ -25,6 +38,12 @@ public class IntQueue {
         return value;
     }
 
+    /**
+     * Elimina un elemento específico de la cola.
+     *
+     * @param value El valor del elemento a eliminar.
+     * @return true si el elemento fue eliminado, false si no se encontró.
+     */
     public boolean remove(int value) {
         if (head == null) return false;
         if (head.data == value) {
@@ -44,14 +63,30 @@ public class IntQueue {
         return false;
     }
 
+    /**
+     * Obtiene el primer elemento de la cola.
+     *
+     * @return El valor del primer elemento o -1 si la cola está vacía.
+     */
     public int getFirst() {
         return (head != null) ? head.data : -1;
     }
 
+    /**
+     * Obtiene el último elemento de la cola.
+     *
+     * @return El valor del último elemento o -1 si la cola está vacía.
+     */
     public int getLast() {
         return (tail != null) ? tail.data : -1;
     }
 
+    /**
+     * Obtiene el elemento en una posición específica de la cola.
+     *
+     * @param pos La posición del elemento (1-indexado).
+     * @return El valor del elemento en la posición o -1 si la posición es inválida.
+     */
     public int getAt(int pos) {
         if (pos < 1 || pos > size) return -1;
         Node current = head;
@@ -61,35 +96,67 @@ public class IntQueue {
         return current.data;
     }
 
+    /**
+     * Verifica si la cola está vacía.
+     *
+     * @return true si la cola está vacía, false en caso contrario.
+     */
     public boolean isEmpty() {
         return size == 0;
     }
 
+    /**
+     * Obtiene el tamaño actual de la cola.
+     *
+     * @return El número de elementos en la cola.
+     */
     public int getSize() {
         return size;
     }
 
+    /**
+     * Imprime una representación gráfica de la cola.
+     */
     public void printQueue() {
         if (isEmpty()) {
-            System.out.println("raíz -> *");
+            System.out.println("+---+   ");
+            System.out.println("|   | * ");
+            System.out.println("+---+   ");
             return;
         }
-        System.out.print("raíz -> ");
+
         Node current = head;
+
         while (current != null) {
-            System.out.print("[ " + current.data + ", -> ");
-            if (current.next == null) {
-                System.out.print("*");
+            System.out.print("+---+   ");
+            current = current.next;
+        }
+        System.out.println("+---+");
+
+        current = head;
+
+        while (current != null) {
+            if (current.next != null) {
+                System.out.print("| " + current.data + " | --> ");
+            } else {
+                System.out.print("| " + current.data + " | * ");
             }
             current = current.next;
         }
-
-        for (int i = 0; i < size; i++) {
-            System.out.print(" ]");
-        }
         System.out.println();
+
+        current = head;
+
+        while (current != null) {
+            System.out.print("+---+   ");
+            current = current.next;
+        }
+        System.out.println("+---+");
     }
 
+    /**
+     * Vacía la cola eliminando todos sus elementos.
+     */
     public void clear() {
         head = tail = null;
         size = 0;
