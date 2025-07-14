@@ -10,6 +10,9 @@ public class Main {
             mostrarMenu();
             opcion = leerEntero(sc, "Seleccione una opción: ");
             switch (opcion) {
+                case 0:
+                    manager.cargarTenistasPrueba();
+                    break;
                 case 1:
                     manager.ingresarTenistas(sc);
                     break;
@@ -36,6 +39,7 @@ public class Main {
 
     private static void mostrarMenu() {
         System.out.println("\n===== MENÚ PRINCIPAL =====");
+        System.out.println("0. Cargar 15 tenistas de prueba automáticamente");
         System.out.println("1. Ingreso de los tenistas");
         System.out.println("2. Mostrar datos ingresados");
         System.out.println("3. Mostrar tenistas ordenados por puntaje descendentemnte");

@@ -5,10 +5,47 @@ public class TenistaManager {
     private Tenista[] lista = new Tenista[MAX];
     private int cantidad = 0;
 
+    public void cargarTenistasPrueba() {
+        if (cantidad >= MAX) {
+            System.out.println("Ya hay el máximo de tenistas registrados.");
+            return;
+        }
+
+        String[] nombres = {
+                "Rafael Nadal", "Roger Federer", "Novak Djokovic", "Andy Murray",
+                "Stan Wawrinka", "Dominic Thiem", "Alexander Zverev", "Daniil Medvedev",
+                "Stefanos Tsitsipas", "Carlos Alcaraz", "Casper Ruud", "Matteo Berrettini",
+                "Jannik Sinner", "Nick Kyrgios", "Holger Rune"
+        };
+
+        String[] paises = {
+                "España", "Suiza", "Serbia", "Reino Unido",
+                "Suiza", "Austria", "Alemania", "Rusia",
+                "Grecia", "España", "Noruega", "Italia",
+                "Italia", "Australia", "Dinamarca"
+        };
+
+        int[] edades = { 37, 41, 36, 35, 38, 30, 26, 27, 24, 21, 25, 28, 22, 29, 20 };
+        int[] puntajes = { 9500, 9100, 10200, 8000, 7500, 7000, 7800, 8600, 8300, 8900, 7200, 7100, 7600, 7300, 6800 };
+
+        int agregados = 0;
+        for (int i = 0; i < nombres.length && cantidad < MAX; i++) {
+            lista[cantidad++] = new Tenista(nombres[i], paises[i], edades[i], puntajes[i]);
+            agregados++;
+        }
+
+        System.out.println(agregados + " tenistas de prueba agregados correctamente.");
+    }
+
     public void ingresarTenistas(Scanner sc) {
+        if (cantidad >= MAX) {
+            System.out.println("Ya hay el máximo de tenistas registrados (" + MAX + ").");
+            return;
+        }
+
         int n = leerEntero(sc, "¿Cuántos tenistas desea ingresar? ");
-        if (n < 1 || n > MAX) {
-            System.out.println("Cantidad inválida");
+        if (n < 1 || n > (MAX - cantidad)) {
+            System.out.println("Cantidad inválida. Puede ingresar hasta " + (MAX - cantidad) + " tenistas más.");
             return;
         }
 
@@ -22,11 +59,6 @@ public class TenistaManager {
             int puntaje = leerEntero(sc, "Puntaje ATP: ");
 
             lista[cantidad++] = new Tenista(nombre, pais, edad, puntaje);
-
-            if (cantidad >= MAX) {
-                System.out.println("Se alcanzó el máximo de tenistas");
-                break;
-            }
         }
     }
 
