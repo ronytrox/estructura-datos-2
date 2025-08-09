@@ -30,15 +30,15 @@ public class QueueProject {
             print("10. Terminar");
             print("===================================");
 
-            int option = Integer.parseInt(read("Elige una opción: "));
+            int option = readInt("Elige una opción (1-10): ", 1, 10);
 
             switch (option) {
                 case 1:
-                    int value = Integer.parseInt(read("Ingrese un número entero: "));
+                    int value = readInt("Ingrese un número entero: ");
                     queue.insert(value);
                     break;
                 case 2:
-                    int toRemove = Integer.parseInt(read("Ingrese el elemento que desea eliminar: "));
+                    int toRemove = readInt("Ingrese el elemento que desea eliminar: ");
                     boolean removed = queue.remove(toRemove);
                     if (removed)
                         print("Elemento eliminado: " + toRemove);
@@ -60,12 +60,13 @@ public class QueueProject {
                         print("Último elemento: " + last);
                     break;
                 case 5:
-                    int pos = Integer.parseInt(read("Ingrese la posición (1 a " + queue.getSize() + "): "));
-                    int at = queue.getAt(pos);
-                    if (at == -1)
-                        print("Posición inválida.");
-                    else
+                    if (queue.isEmpty()) {
+                        print("La cola está vacía.");
+                    } else {
+                        int pos = readInt("Ingrese la posición (1 a " + queue.getSize() + "): ", 1, queue.getSize());
+                        int at = queue.getAt(pos);
                         print("Elemento en posición " + pos + ": " + at);
+                    }
                     break;
                 case 6:
                     print(queue.isEmpty() ? "Sí" : "No");
@@ -84,8 +85,6 @@ public class QueueProject {
                     running = false;
                     print("Programa terminado.");
                     break;
-                default:
-                    print("Opción no válida.");
             }
         }
     }
@@ -110,5 +109,41 @@ public class QueueProject {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         print(s);
         return reader.readLine();
+    }
+
+    /**
+     * Lee un número entero desde la consola, validando que sea un número válido.
+     *
+     * @param prompt Mensaje que se muestra al usuario solicitando el número.
+     * @return El número entero ingresado por el usuario.
+     * @throws IOException Si ocurre un error al leer la entrada.
+     */
+    static int readInt(String prompt) throws IOException {
+        while (true) {
+            try {
+                return Integer.parseInt(read(prompt));
+            } catch (NumberFormatException e) {
+                print("Por favor, ingrese un número válido.");
+            }
+        }
+    }
+
+    /**
+     * Lee un número entero desde la consola, validando que esté dentro de un rango específico.
+     *
+     * @param prompt Mensaje que se muestra al usuario solicitando el número.
+     * @param min    Valor mínimo aceptado (inclusive).
+     * @param max    Valor máximo aceptado (inclusive).
+     * @return El número entero ingresado por el usuario dentro del rango especificado.
+     * @throws IOException Si ocurre un error al leer la entrada.
+     */
+    static int readInt(String prompt, int min, int max) throws IOException {
+        while (true) {
+            int num = readInt(prompt);
+            if (num >= min && num <= max) {
+                return num;
+            }
+            print("El número debe estar entre " + min + " y " + max + ".");
+        }
     }
 }

@@ -2,6 +2,8 @@ package org.example.LinkedList;
 
 /**
  * Representa una cola de enteros implementada con una lista enlazada.
+ * Permite insertar, eliminar y obtener elementos, así como mostrar
+ * gráficamente la cola con un formato uniforme.
  */
 public class IntQueue {
     private Node head;
@@ -115,43 +117,50 @@ public class IntQueue {
     }
 
     /**
-     * Imprime una representación gráfica de la cola.
+     * Imprime una representación gráfica de la cola con cajas.
+
      */
     public void printQueue() {
+        final int boxWidth = 7;
+
         if (isEmpty()) {
-            System.out.println("+---+   ");
-            System.out.println("|   | * ");
-            System.out.println("+---+   ");
+            System.out.println("+-------+");
+            System.out.println("|       | *");
+            System.out.println("+-------+");
             return;
         }
 
+        // Línea superior
         Node current = head;
-
         while (current != null) {
-            System.out.print("+---+   ");
-            current = current.next;
-        }
-        System.out.println("+---+");
-
-        current = head;
-
-        while (current != null) {
-            if (current.next != null) {
-                System.out.print("| " + current.data + " | --> ");
-            } else {
-                System.out.print("| " + current.data + " | * ");
-            }
+            System.out.print("+" + "-".repeat(boxWidth) + "+   ");
             current = current.next;
         }
         System.out.println();
 
+        // Contenido centrado con flechas alineadas
         current = head;
-
         while (current != null) {
-            System.out.print("+---+   ");
+            String numStr = String.valueOf(current.data);
+            int padding = boxWidth - numStr.length();
+            int leftPad = padding / 2;
+            int rightPad = padding - leftPad;
+
+            if (current.next != null)
+                System.out.print("|" + " ".repeat(leftPad) + numStr + " ".repeat(rightPad) + "|-->");
+            else
+                System.out.print("|" + " ".repeat(leftPad) + numStr + " ".repeat(rightPad) + "| * ");
             current = current.next;
         }
-        System.out.println("+---+");
+        System.out.println();
+
+        // Línea inferior
+        current = head;
+        while (current != null) {
+            System.out.print("+" + "-".repeat(boxWidth) + "+   ");
+            current = current.next;
+        }
+        System.out.println();
     }
 
     /**
